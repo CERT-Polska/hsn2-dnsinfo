@@ -75,6 +75,7 @@ hu.com whois.centralnic.com
 id whois.pandi.or.id
 ie whois.domainregistry.ie
 il whois.isoc.org.il
+im whois.nic.im
 in whois.inregistry.net
 info whois.afilias.info
 int whois.isi.edu
@@ -90,7 +91,7 @@ ke whois.kenic.or.ke
 kg whois.domain.kg
 kr whois.nic.or.kr
 kz whois.nic.kz
-la whois2.afilias-grs.net
+la whois.nic.la
 li whois.nic.li
 lt whois.domreg.lt
 lu whois.restena.lu
@@ -173,6 +174,7 @@ ve whois.nic.ve
 vg whois.adamsnames.tc
 ws whois.website.ws
 xxx whois.nic.xxx
+xyz whois.nic.xyz
 yu whois.ripe.net
 za.com whois.centralnic.com
 xn--p1ai whois.tcinet.ru
