@@ -1,0 +1,2 @@
+build/dnsinfo /opt/hsn2/
+dnsinfo.conf /etc/hsn2/

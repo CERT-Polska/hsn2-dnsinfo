@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+. /lib/hsn2/conf-functions
+
+if [ "$1" = "configure" ]; then
+	setConfigValueFromDb ZONES_FILE hsn2-dnsinfo/zones_file /etc/hsn2/dnsinfo.conf
+	setConfigValueFromDb WHOIS_SERVERS_FILE hsn2-dnsinfo/whois_servers /etc/hsn2/dnsinfo.conf
+	db_stop
+fi
+
+#DEBHELPER#

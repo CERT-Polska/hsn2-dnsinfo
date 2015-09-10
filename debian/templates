@@ -1,0 +1,11 @@
+Template: hsn2-dnsinfo/zones_file
+Type: string
+Default: /etc/hsn2/dnsinfo-zones.txt
+Description: Zones definitions file.
+ Part of HSN2 DNS Info service configuration.
+
+Template: hsn2-dnsinfo/whois_servers_file
+Type: string
+Default: /etc/hsn2/dnsinfo-whois-servers.txt
+Description: Mapping of whois servers.
+ Part of HSN2 DNS Info service configuration.
