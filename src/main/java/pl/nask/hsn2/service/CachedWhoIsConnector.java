@@ -71,15 +71,15 @@ public class CachedWhoIsConnector implements WhoIsConnector {
 			data = this.delegate.getWhoisData(domain);
 			if (data != null) {
 				
-				if (cache.size() >= this.cacheLimit) {
+				if (this.cacheLimit > 0 && cache.size() >= this.cacheLimit) {
 					scanCache(); // last chance to expire entries, and free up slots
 				}
 				
-				if (cache.size() < this.cacheLimit) {
+				if (this.cacheLimit == 0 || cache.size() < this.cacheLimit) {
 					LOGGER.debug("Creating new entry.");
 					entry = new CacheEntry(data);
 					cache.put(domain, entry);
-				} else {
+				} else if (this.cacheLimit > 0) {
 					LOGGER.warn("Cache limit exceeded. Limit is {}.", this.cacheLimit);
 				}
 			} else {

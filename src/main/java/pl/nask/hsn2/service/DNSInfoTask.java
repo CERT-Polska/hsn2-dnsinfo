@@ -167,6 +167,7 @@ public class DNSInfoTask implements Task {
 			}
 			jobContext.addAttribute(this.keysMap.get(key), result.get(key));
 		}
+		logEnd();
 	}
 
 	private void logEnd() {
