@@ -28,8 +28,8 @@ import pl.nask.hsn2.CommandLineParams;
 
 public class DNSInfoCommandLineParams extends CommandLineParams {
 	
-	private static final OptionNameWrapper ZONES_PATH = new OptionNameWrapper("zones", "zonesPath");
-	private static final OptionNameWrapper WHOSI_SERVERS_PATH = new OptionNameWrapper("whois-servers", "whoisServersPath");
+	private static final OptionNameWrapper ZONES_PATH = new OptionNameWrapper("zp", "zonesPath");
+	private static final OptionNameWrapper WHOSI_SERVERS_PATH = new OptionNameWrapper("wsp", "whoisServersPath");
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(DNSInfoCommandLineParams.class);
 
