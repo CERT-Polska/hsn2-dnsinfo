@@ -31,6 +31,7 @@ public final class EUWhoIsParser extends RegExpWhoisParser {
 						"keys:\n(.*?)(?=Please visit)",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
 
+		int blockNumber = 1;
 		Map<Pattern, String> map;
 //      1 => array('/name:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:name', 
 //              '/organisation:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:organization', 
@@ -45,14 +46,14 @@ public final class EUWhoIsParser extends RegExpWhoisParser {
 		map.put(Pattern.compile("phone:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "contacts:tech:phone");
 		map.put(Pattern.compile("fax:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "contacts:tech:fax");
 		map.put(Pattern.compile("email:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "contacts:tech:email");
-		blockItems.put(1, map);
+		blockItems.put(blockNumber++, map);
 
 //      2 => array('/name:(?>[\x20\t]*)(.+)$/im' => 'registrar:name', 
 //              '/website:(?>[\x20\t]*)(.+)$/im' => 'registrar:url'), 
 		map = new HashMap<Pattern, String>();
 		map.put(Pattern.compile("name:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE),"registrar:name");
 		map.put(Pattern.compile("website:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "registrar:url");
-		blockItems.put(2, map);
+		blockItems.put(blockNumber++, map);
 
 //      3 => array('/\n(?>[\x20\t]+)(.+)$/im' => 'nameserver', 
 //              '/\n(?>[\x20\t]+)(.+) \(.+\)$/im' => 'nameserver', 
@@ -61,12 +62,12 @@ public final class EUWhoIsParser extends RegExpWhoisParser {
 		map.put(Pattern.compile("(?>[\\x20\\t]+)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE),"nameservers");
 		map.put(Pattern.compile("(?>[\\x20\\t]+)(.+) \\(.+\\)$", Pattern.CASE_INSENSITIVE  | Pattern.MULTILINE), "nameservers");
 		map.put(Pattern.compile("(?>[\\x20\\t]+).+ \\((.+)\\)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "ips");
-		blockItems.put(3, map);
+		blockItems.put(blockNumber++, map);
 
 //      4 => array('/keyTag:(.+)$/im' => 'dnssec'));
 		map = new HashMap<Pattern, String>();
 		map.put(Pattern.compile("keyTag:(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE),"dnssec");
-		blockItems.put(4, map);
+		blockItems.put(blockNumber++, map);
 
 		availableItem = Pattern.compile(".*Status:(?>[\\x20\\t]*)AVAILABLE.*", Pattern.CASE_INSENSITIVE);
 	}

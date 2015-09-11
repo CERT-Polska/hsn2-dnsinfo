@@ -101,7 +101,7 @@ public class DNSInfoTask implements Task {
 		return false;
 	}
 
-	private final void saveFullWhoisIfNeeded(String whoisData) throws StorageException, ResourceException {
+	private void saveFullWhoisIfNeeded(String whoisData) throws StorageException, ResourceException {
 		if (fullWhoisDataKey != null) {
 			try {
 				long whoisDataRefId = jobContext.saveInDataStore(IOUtils.toInputStream(whoisData, "UTF-8"));
@@ -112,7 +112,7 @@ public class DNSInfoTask implements Task {
 		}
 	}
 	
-	private final Map<String, String> parseWhoisData(String rootDomain, String whoisData) {
+	private Map<String, String> parseWhoisData(String rootDomain, String whoisData) {
 		WhoIsParser parser = WhoisParserFactory.getParser(rootDomain);
 		if (parser == null) {
 			LOGGER.error("Cannot find whois parser for domain: {}", this.urlDomain);
@@ -199,6 +199,6 @@ public class DNSInfoTask implements Task {
 				continue;
 			}
 			map.put(mapping[0], mapping[1]);
-		};
+		}
 	}
 }

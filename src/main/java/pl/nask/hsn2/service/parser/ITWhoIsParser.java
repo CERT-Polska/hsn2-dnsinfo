@@ -40,6 +40,7 @@ public final class ITWhoIsParser extends RegExpWhoisParser {
 						"nameservers(?>[\\x20\\t]*)(.*?)$",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
 
+		int blockNumber = 1;
 		Map<Pattern, String> map;
 //      1 => array('/status:(?>[\x20\t]*)(.+)$/im' => 'status', 
 //              '/created:(?>[\x20\t]*)(.+)$/im' => 'created', 
@@ -50,7 +51,7 @@ public final class ITWhoIsParser extends RegExpWhoisParser {
 		map.put(Pattern.compile("created:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "created");
 		map.put(Pattern.compile("last update:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "changed");
 		map.put(Pattern.compile("expire date:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "expires");
-		blockItems.put(1, map);
+		blockItems.put(blockNumber++, map);
 
 //      2 => array('/name:(?>[\x20\t]*)(.+)$/im' => 'contacts:owner:name', 
 //              '/organization:(?>[\x20\t]*)(.+)$/im' => 'contacts:owner:organization', 
@@ -65,7 +66,7 @@ public final class ITWhoIsParser extends RegExpWhoisParser {
 		map.put(Pattern.compile("address:(?>[\\x20\\t]*)(.+)(?=created)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL), "contacts:owner:address");
 		map.put(Pattern.compile("created:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "contacts:owner:created");
 		map.put(Pattern.compile("last update:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "contacts:owner:changed");
-		blockItems.put(2, map);
+		blockItems.put(blockNumber++, map);
 
 //      3 => array('/name:(?>[\x20\t]*)(.+)$/im' => 'contacts:admin:name', 
 //              '/organization:(?>[\x20\t]*)(.+)$/im' => 'contacts:admin:organization', 
@@ -80,7 +81,7 @@ public final class ITWhoIsParser extends RegExpWhoisParser {
 		map.put(Pattern.compile("address:(?>[\\x20\\t]*)(.+)(?=created)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL), "contacts:admin:address");
 		map.put(Pattern.compile("created:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "contacts:admin:created");
 		map.put(Pattern.compile("last update:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "contacts:admin:changed");
-		blockItems.put(3, map);
+		blockItems.put(blockNumber++, map);
 
 //      4 => array('/name:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:name', 
 //              '/organization:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:organization', 
@@ -95,19 +96,19 @@ public final class ITWhoIsParser extends RegExpWhoisParser {
 		map.put(Pattern.compile("address:(?>[\\x20\\t]*)(.+)(?=created)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL), "contacts:tech:address");
 		map.put(Pattern.compile("created:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "contacts:tech:created");
 		map.put(Pattern.compile("last update:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "contacts:tech:changed");
-		blockItems.put(4, map);
+		blockItems.put(blockNumber++, map);
 
 //      5 => array('/organization:(?>[\x20\t]*)(.+)$/im' => 'registrar:name', 
 //              '/name:(?>[\x20\t]*)(.+)$/im' => 'registrar:id'), 
 		map = new HashMap<Pattern, String>();
 		map.put(Pattern.compile("organization:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE  | Pattern.MULTILINE),"registrar:name");
 		map.put(Pattern.compile("name:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE  | Pattern.MULTILINE), "registrar:id");
-		blockItems.put(5, map);
+		blockItems.put(blockNumber++, map);
 
 //      6 => array('/\n(?>[\x20\t]+)(.+)$/im' => 'nameserver'));
 		map = new HashMap<Pattern, String>();
 		map.put(Pattern.compile("\n(?>[\\x20\\t]+)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE),"nameservers");
-		blockItems.put(6, map);
+		blockItems.put(blockNumber++, map);
 
 		availableItem = Pattern.compile(".*status:(?>[\\x20\\t]*)available.*", Pattern.CASE_INSENSITIVE);
 	}

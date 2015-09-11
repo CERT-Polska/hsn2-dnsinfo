@@ -15,7 +15,7 @@ public final class WhoisParserFactory {
 	
 	private WhoisParserFactory() {}
 
-	public static final WhoIsParser getParser(final String domain) {
+	public static WhoIsParser getParser(final String domain) {
 		if (domain == null || "".equals(domain)) {
 			throw new IllegalArgumentException("Domain cannot be empty.");
 		}
@@ -62,11 +62,11 @@ public final class WhoisParserFactory {
 		return parser;
 	}
 	
-	public static final Map<String, WhoIsParser> getParsersMap() {
+	public static Map<String, WhoIsParser> getParsersMap() {
 		return Collections.unmodifiableMap(PARSERS);
 	}
 	
-	public static final void clearParsersMap() {
+	public static void clearParsersMap() {
 		synchronized (PARSERS) {
 			PARSERS.clear();
 		}
