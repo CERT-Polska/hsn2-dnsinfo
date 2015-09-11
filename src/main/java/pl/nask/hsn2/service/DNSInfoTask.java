@@ -48,18 +48,12 @@ public class DNSInfoTask implements Task {
 	private final DomainExtractor extractor;
 	private final TaskContext jobContext;
 
-	// service level configuration
-	private final String zonesFile;
-	private final String whoisServersList;
-
 	// workflow parameters
 	private final String urlDomainKey;
 	private final boolean collectStats;
 	private final String fullWhoisDataKey;
-	private final String keysMapString;
-	private final boolean cacheOn;
-	private final int cacheTime;
-	private final int cacheLimit;
+//	private final int cacheTime;
+//	private final int cacheLimit;
 	
 	// object store attributes
 	private final String urlDomain;
@@ -76,41 +70,61 @@ public class DNSInfoTask implements Task {
 
 		this.jobContext = jobContext;
 
-		this.zonesFile = cmdZonesPath;
-		this.whoisServersList = cmdWhoisServersPath;
-
 		this.collectStats = parameters.getBoolean("collect_stats", false);
 		this.urlDomainKey = parameters.get("url_domain_key", "url_domain");
 		this.urlDomain = data.getString(urlDomainKey);
 		this.fullWhoisDataKey = parameters.get("whois_data_key", null);
-		this.keysMapString = parameters.get("keys_map", null);
-		this.cacheOn = parameters.getBoolean("cache_on", true);
-		this.cacheTime = parameters.getInt("cache_time", 0);
-		this.cacheLimit = parameters.getInt("cache_limit", 0);
 		
 		try {
-			this.extractor = new ZonesBasedDomainExtractor(zonesFile);
+			this.extractor = new ZonesBasedDomainExtractor(cmdZonesPath);
 		} catch (FileNotFoundException e) {
 			throw new ParameterException("ZonesBasedDomainExtractor cannot be initialized.", e);
 		}
 		
 		try {
-			if (this.cacheOn) {
+			if (parameters.getBoolean("cache_on", true)) {
 				this.whoisConnector = new CachedWhoIsConnector(
-						new WhoIsConnectorImpl(whoisServersList),
-						this.cacheTime, this.cacheLimit);
+						new WhoIsConnectorImpl(cmdWhoisServersPath),
+							parameters.getInt("cache_time", 0),
+							parameters.getInt("cache_limit", 0));
 			} else {
-				this.whoisConnector = new WhoIsConnectorImpl(whoisServersList);
+				this.whoisConnector = new WhoIsConnectorImpl(cmdWhoisServersPath);
 			}
 		} catch (FileNotFoundException e) {
 			throw new ParameterException("WhoIsConnector cannot be initialized.", e);
 		}
 		
-		parseKeyMaps(this.keysMap, this.keysMapString);
+		parseKeyMaps(this.keysMap, parameters.get("keys_map", null));
 	}
 
 	public final boolean takesMuchTime() {
 		return false;
+	}
+
+	private final void saveFullWhoisIfNeeded(String whoisData) throws StorageException, ResourceException {
+		if (fullWhoisDataKey != null) {
+			try {
+				long whoisDataRefId = jobContext.saveInDataStore(IOUtils.toInputStream(whoisData, "UTF-8"));
+				jobContext.addReference(fullWhoisDataKey, whoisDataRefId);
+			} catch (IOException e) {
+				LOGGER.error("Cannot save whois data into DataStore.", e);
+			}
+		}
+	}
+	
+	private final Map<String, String> parseWhoisData(String rootDomain, String whoisData) {
+		WhoIsParser parser = WhoisParserFactory.getParser(rootDomain);
+		if (parser == null) {
+			LOGGER.error("Cannot find whois parser for domain: {}", this.urlDomain);
+			return null;
+		}
+
+		Map<String, String> result = parser.parse(whoisData);
+		if (result == null || result.isEmpty()) {
+			LOGGER.error("Cannot parse whois data for domain: {}", this.urlDomain);
+			return null;
+		}
+		return result;
 	}
 
 	public final void process() throws ParameterException, ResourceException, StorageException, InputDataException {
@@ -135,31 +149,18 @@ public class DNSInfoTask implements Task {
 		}
 		LOGGER.debug("Whois data: {}", whoisData);
 
-		//save full whoisData if needed
-		if (fullWhoisDataKey != null) {
-				try {
-					long whoisDataRefId = jobContext.saveInDataStore(IOUtils.toInputStream(whoisData, "UTF-8"));
-					jobContext.addReference(fullWhoisDataKey, whoisDataRefId);
-				} catch (IOException e) {
-					LOGGER.error("Cannot save whois data into DataStore.", e);
-				}
-		}
+		saveFullWhoisIfNeeded(whoisData);
 		
-		WhoIsParser parser = WhoisParserFactory.getParser(rootDomain);
-		if (parser == null) {
-			LOGGER.error("Cannot find whois parser for domain: {}", this.urlDomain);
-			logEnd();
+		Map<String, String> result = parseWhoisData(rootDomain, whoisData);
+		mapKeys(result);
+
+		logEnd();
+	}
+
+	private void mapKeys(Map<String, String> result) {
+		if (result == null) {
 			return;
 		}
-
-		Map<String, String> result = parser.parse(whoisData);
-		if (result == null || result.isEmpty()) {
-			LOGGER.error("Cannot parse whois data for domain: {}", this.urlDomain);
-			logEnd();
-			return;
-		}
-
-		//map keys
 		for (String key : this.keysMap.keySet()) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("Setting up ObjectStore key {} with value {}",
@@ -167,9 +168,8 @@ public class DNSInfoTask implements Task {
 			}
 			jobContext.addAttribute(this.keysMap.get(key), result.get(key));
 		}
-		logEnd();
 	}
-
+	
 	private void logEnd() {
 		if (collectStats) {
 			jobContext.addTimeAttribute("dns_info_time_end",
