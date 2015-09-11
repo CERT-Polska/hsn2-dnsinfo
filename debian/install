@@ -1,2 +1,4 @@
 build/dnsinfo /opt/hsn2/
 dnsinfo.conf /etc/hsn2/
+dnsinfo-zones.txt /etc/hsn2
+dnsinfo-whois-servers.txt /etc/hsn2
