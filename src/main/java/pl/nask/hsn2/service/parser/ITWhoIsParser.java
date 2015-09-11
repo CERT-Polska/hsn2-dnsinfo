@@ -15,32 +15,33 @@ public final class ITWhoIsParser extends RegExpWhoisParser {
 //        4 => '/technical contacts(?>[\x20\t]*)(.*?)(?=registrar)/is', 
 //        5 => '/registrar(?>[\x20\t]*)(.*?)(?=nameservers)/is', 
 //        6 => '/nameservers(?>[\x20\t]*)(.*?)$/is');
-		blocks.put(1,
+		int blockNumber = 1;
+		blocks.put(blockNumber++,
 				Pattern.compile(
 						"domain:(?>[\\x20\\t]*)(.*?)(?=registrant)",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
-		blocks.put(2,
+		blocks.put(blockNumber++,
 				Pattern.compile(
 						"registrant(?>[\\x20\\t]*)(.*?)(?=admin contact)",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
-		blocks.put(3,
+		blocks.put(blockNumber++,
 				Pattern.compile(
 						"admin contact(?>[\\x20\\t]*)(.*?)(?=technical contacts)",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
-		blocks.put(4,
+		blocks.put(blockNumber++,
 				Pattern.compile(
 						"technical contacts(?>[\\x20\\t]*)(.*?)(?=registrar)",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
-		blocks.put(5,
+		blocks.put(blockNumber++,
 				Pattern.compile(
 						"registrar(?>[\\x20\\t]*)(.*?)(?=nameservers)",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
-		blocks.put(6,
+		blocks.put(blockNumber++,
 				Pattern.compile(
 						"nameservers(?>[\\x20\\t]*)(.*?)$",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
 
-		int blockNumber = 1;
+		blockNumber = 1;
 		Map<Pattern, String> map;
 //      1 => array('/status:(?>[\x20\t]*)(.+)$/im' => 'status', 
 //              '/created:(?>[\x20\t]*)(.+)$/im' => 'created', 

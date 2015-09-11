@@ -12,20 +12,21 @@ public final class PLWhoIsParser extends RegExpWhoisParser {
 //      1 => '/domain name:(?>[\x20\t]*)(.*?)(?=technical contact:|registrar:)/is', 
 //      2 => '/technical contact:(?>[\x20\t]*)(.*?)(?=registrar:)/is', 
 //      3 => '/registrar:(?>[\x20\t]*)(.*?)(?=WHOIS displays data)/is');
-		blocks.put(1,
+		int blockNumber = 1;
+		blocks.put(blockNumber++,
 				Pattern.compile(
 						"domain name:(?>[\\x20\\t]*)(.*?)(?=technical contact:|registrar:)",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
-		blocks.put(2,
+		blocks.put(blockNumber++,
 				Pattern.compile(
 						"technical contact:(?>[\\x20\\t]*)(.*?)(?=registrar:)",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
-		blocks.put(3,
+		blocks.put(blockNumber++,
 				Pattern.compile(
 						"registrar:(?>[\\x20\\t]*)(.*?)(?=WHOIS displays data)",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
 		
-		int blockNumber = 1;
+		blockNumber = 1;
 
 		Map<Pattern, String> map;
 //      1 => array('/^(nameservers:)?(?>[\x20\t]+)(.+)\./im' => 'nameserver', 

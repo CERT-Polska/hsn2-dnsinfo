@@ -14,24 +14,25 @@ public final class EUWhoIsParser extends RegExpWhoisParser {
 //      2 => '/registrar:\n(.*?)(?=name servers)/is',
 //		  3 => '/name servers:\n(.*?)(?=keys:)/is', 
 //      4 => '/keys:\n(.*?)(?=Please visit)/is');
-		blocks.put(1,
+		int blockNumber = 1;
+		blocks.put(blockNumber++,
 				Pattern.compile(
 						"technical:\n(.*?)(?=registrar)",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
-		blocks.put(2,
+		blocks.put(blockNumber++,
 				Pattern.compile(
 						"registrar:\n(.*?)(?=name servers)",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
-		blocks.put(3,
+		blocks.put(blockNumber++,
 				Pattern.compile(
 						"name servers:\n(.*?)(?=keys:|Please visit)",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
-		blocks.put(4,
+		blocks.put(blockNumber++,
 				Pattern.compile(
 						"keys:\n(.*?)(?=Please visit)",
 						Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
 
-		int blockNumber = 1;
+		blockNumber = 1;
 		Map<Pattern, String> map;
 //      1 => array('/name:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:name', 
 //              '/organisation:(?>[\x20\t]*)(.+)$/im' => 'contacts:tech:organization', 
