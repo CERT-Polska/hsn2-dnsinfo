@@ -5,5 +5,5 @@
 
 db_input high hsn2-dnsinfo/zones_file || true
 db_go
-db_input high hsn2-dnsinfo/whois_servers || true
+db_input high hsn2-dnsinfo/whois_servers_file || true
 db_go

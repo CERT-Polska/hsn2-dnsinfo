@@ -5,7 +5,7 @@ set -e
 
 if [ "$1" = "configure" ]; then
 	setConfigValueFromDb ZONES_FILE hsn2-dnsinfo/zones_file /etc/hsn2/dnsinfo-zones.txt
-	setConfigValueFromDb WHOIS_SERVERS_FILE hsn2-dnsinfo/whois_servers /etc/hsn2/dnsinfo-whois-servers.txt
+	setConfigValueFromDb WHOIS_SERVERS_FILE hsn2-dnsinfo/whois_servers_file /etc/hsn2/dnsinfo-whois-servers.txt
 	db_stop
 fi
 
