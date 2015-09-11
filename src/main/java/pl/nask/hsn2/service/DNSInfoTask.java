@@ -162,11 +162,16 @@ public class DNSInfoTask implements Task {
 			return;
 		}
 		for (String key : this.keysMap.keySet()) {
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("Setting up ObjectStore key {} with value {}",
-						this.keysMap.get(key), result.get(key));
+			String value = result.get(key);
+			if (value != null) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("Setting up ObjectStore key {} with value {}",
+							this.keysMap.get(key), value);
+				}
+				jobContext.addAttribute(this.keysMap.get(key), value);
+			} else {
+				LOGGER.debug("There is no value for key {} attribute will not be creatd in object store.", key);
 			}
-			jobContext.addAttribute(this.keysMap.get(key), result.get(key));
 		}
 	}
 	
