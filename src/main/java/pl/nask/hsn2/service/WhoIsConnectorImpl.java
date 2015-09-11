@@ -31,7 +31,7 @@ public class WhoIsConnectorImpl implements WhoIsConnector {
 		loadServersList(path);
 	}
 
-	public void loadServersList(String path) throws FileNotFoundException {
+	public final void loadServersList(String path) throws FileNotFoundException {
 
 		if (!this.whoisServers.isEmpty()) {
 			this.whoisServers.clear();
@@ -58,7 +58,7 @@ public class WhoIsConnectorImpl implements WhoIsConnector {
 		LOGGER.info("Read {} servers from file: {}", counter, path);
 	}
 
-	public String getWhoisServer(String domain) {
+	public final String getWhoisServer(String domain) {
 		String tmp = domain==null?null:domain.trim();
 		if (domain == null || "".equals(tmp)) {
 			LOGGER.error("It's stupid to looking for whois server for empty domain.");
@@ -78,7 +78,7 @@ public class WhoIsConnectorImpl implements WhoIsConnector {
 	}
 	
 	@Override
-	public String getWhoisData(String domain) {
+	public final String getWhoisData(String domain) {
 		
 		String whoisServer = getWhoisServer(domain);
 	

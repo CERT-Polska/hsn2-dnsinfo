@@ -16,7 +16,7 @@ public class WhoIsDataParser {
 		parsers.put("whois.nic.it", new ITWhoIsParser());
 	}
 	
-	public Map<String, String> parse(String whoisServer, String whoisData) {
+	public final Map<String, String> parse(String whoisServer, String whoisData) {
 		
 		if (whoisServer == null || "".equals(whoisServer)) {
 			LOGGER.error("WhoIs server must be provided: {}", whoisServer);
@@ -33,7 +33,7 @@ public class WhoIsDataParser {
 			return null;
 		}
 		
-		// get parser for particulkar whois server
+		// get parser for particular whois server
 		WhoIsParser parser = parsers.get(whoisServer);
 		return parser.parse(whoisData);
 	}
