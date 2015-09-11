@@ -47,11 +47,11 @@ public class DNSInfoCommandLineParams extends CommandLineParams {
 		setDefaultMaxThreads(1);
 	}
 	
-	public String getZonesPath() {
+	public final String getZonesPath() {
 		return getOptionValue(ZONES_PATH);
 	}
 	
-	public String getWhoisServersPath() {
+	public final String getWhoisServersPath() {
 		return getOptionValue(WHOSI_SERVERS_PATH);
 	}
 

@@ -34,7 +34,7 @@ public class ZonesBasedDomainExtractor implements DomainExtractor {
 	}
 
 	@Override
-	public String getDomain(String hostname) {
+	public final String getDomain(String hostname) {
 
 		if (hostname == null || "".equals(hostname)) {
 			LOGGER.error("No valid domain: {}", hostname);

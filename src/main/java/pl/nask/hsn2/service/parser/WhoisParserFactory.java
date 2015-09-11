@@ -7,7 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WhoisParserFactory {
+public final class WhoisParserFactory {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(WhoisParserFactory.class);
 	
@@ -44,7 +44,7 @@ public class WhoisParserFactory {
 		return parser;
 	}
 	
-	private static final WhoIsParser getOrCreateParser(String domain, String zone) {
+	private static WhoIsParser getOrCreateParser(String domain, String zone) {
 		WhoIsParser parser = null;
 		Class<? extends WhoIsParser> parserClass;
 		String parserClassName = "pl.nask.hsn2.service.parser." + zone.toUpperCase() + "WhoIsParser";

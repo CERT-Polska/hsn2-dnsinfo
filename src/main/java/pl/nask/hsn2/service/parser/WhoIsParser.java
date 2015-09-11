@@ -4,8 +4,8 @@ import java.util.Map;
 
 public interface WhoIsParser {
 
-	public Map<String, String> parse(String whoisData);
+	Map<String, String> parse(String whoisData);
 
 	// is domain available means no whois data
-	public boolean isAvailable(String whoisData);
+	boolean isAvailable(String whoisData);
 }

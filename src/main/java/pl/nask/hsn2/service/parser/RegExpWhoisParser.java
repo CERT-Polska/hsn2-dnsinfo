@@ -45,13 +45,13 @@ public abstract class RegExpWhoisParser implements WhoIsParser {
 				continue;
 			}
 			
-			for (Pattern itemPattern : items.keySet()) {
-				Matcher itemMacher = itemPattern.matcher(blockMatcher.group(1));
+			for (Map.Entry<Pattern, String> entry : items.entrySet()) {
+				Matcher itemMacher = entry.getKey().matcher(blockMatcher.group(1));
 				while (itemMacher.find()) {
-					if (results.containsKey(items.get(itemPattern))) {
-						results.put(items.get(itemPattern), results.get(items.get(itemPattern)) + ";" + itemMacher.group(1));
+					if (results.containsKey(entry.getValue())) {
+						results.put(entry.getValue(), results.get(entry.getValue()) + ";" + itemMacher.group(1));
 					} else {
-						results.put(items.get(itemPattern), itemMacher.group(1));
+						results.put(entry.getValue(), itemMacher.group(1));
 					}
 				}
 			}
@@ -61,7 +61,7 @@ public abstract class RegExpWhoisParser implements WhoIsParser {
 	}
 
 	@Override
-	public boolean isAvailable(String whoisData) {
+	public final boolean isAvailable(String whoisData) {
 		if (availableItem == null) {
 			return true;
 		}
