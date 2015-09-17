@@ -1,6 +1,8 @@
 package pl.nask.hsn2.tests;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,13 +14,13 @@ import pl.nask.hsn2.ParameterException;
 import pl.nask.hsn2.ResourceException;
 import pl.nask.hsn2.StorageException;
 import pl.nask.hsn2.TaskContext;
-import pl.nask.hsn2.service.DNSInfoTask;
+import pl.nask.hsn2.service.DNSInfoOsTask;
 import pl.nask.hsn2.wrappers.ObjectDataWrapper;
 import pl.nask.hsn2.wrappers.ParametersWrapper;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
 
-public class DNSInfoTaskTest {
+public class DNSInfoOsTaskTest {
 
 	@Mocked
 	TaskContext jobContext;
@@ -55,10 +57,12 @@ public class DNSInfoTaskTest {
 	}
 	
 	@Test
-	public void keysMapParsingTest() throws ParameterException {
+	public void keysMapParsingTest() throws ParameterException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Map<String, String> map = new HashMap<String, String>();
 		String string = "created->whois_created    ;    \n	expires->whois_exp";
-		DNSInfoTask.parseKeyMaps(map, string);
+		Method method = DNSInfoOsTask.class.getDeclaredMethod("parseOsKeyMaps", Map.class, String.class);
+		method.setAccessible(true);
+		method.invoke(null, map, string);
 		Assert.assertEquals(map.size(), 2);
 		Assert.assertTrue(map.containsKey("created"));
 		Assert.assertTrue(map.containsKey("expires"));

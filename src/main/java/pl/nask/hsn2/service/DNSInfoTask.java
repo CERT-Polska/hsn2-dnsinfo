@@ -20,11 +20,8 @@
 package pl.nask.hsn2.service;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,26 +38,27 @@ import pl.nask.hsn2.task.Task;
 import pl.nask.hsn2.wrappers.ObjectDataWrapper;
 import pl.nask.hsn2.wrappers.ParametersWrapper;
 
-public class DNSInfoTask implements Task {
+public abstract class DNSInfoTask implements Task {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DNSInfoTask.class);
-
-	private final DomainExtractor extractor;
-	private final TaskContext jobContext;
+	private static Logger LOGGER = LoggerFactory.getLogger(DNSInfoTask.class);
 
 	// workflow parameters
-	private final String urlDomainKey;
-	private final boolean collectStats;
-	private final String fullWhoisDataKey;
-//	private final int cacheTime;
-//	private final int cacheLimit;
+	private static String WFL_KEY_COLLECT_STATS = "collect_stats";
+	private static String WFL_KEY_URL_DOMAIN_KEY = "url_domain_key";
+	private static String WFL_KEY_CACHE_ON = "cache_on";
+	private static String WFL_KEY_CACHE_TIME = "cache_time";
+	private static String WFL_KEY_CACHE_LIMIT = "cache_limit";
+	
 	
 	// object store attributes
 	private final String urlDomain;
 
 	//class variables
+	protected final TaskContext jobContext;
+	private final DomainExtractor extractor;
 	private final WhoIsConnector whoisConnector;
-	private final Map<String, String> keysMap = new HashMap<String, String>();
+	private final String urlDomainKey;
+	private final boolean collectStats;
 
 	public DNSInfoTask(
 			final TaskContext jobContext,
@@ -70,10 +68,9 @@ public class DNSInfoTask implements Task {
 
 		this.jobContext = jobContext;
 
-		this.collectStats = parameters.getBoolean("collect_stats", false);
-		this.urlDomainKey = parameters.get("url_domain_key", "url_domain");
+		this.collectStats = parameters.getBoolean(WFL_KEY_COLLECT_STATS, false);
+		this.urlDomainKey = parameters.get(WFL_KEY_URL_DOMAIN_KEY, "url_domain");
 		this.urlDomain = data.getString(urlDomainKey);
-		this.fullWhoisDataKey = parameters.get("whois_data_key", null);
 		
 		try {
 			this.extractor = new ZonesBasedDomainExtractor(cmdZonesPath);
@@ -82,37 +79,24 @@ public class DNSInfoTask implements Task {
 		}
 		
 		try {
-			if (parameters.getBoolean("cache_on", true)) {
+			if (parameters.getBoolean(WFL_KEY_CACHE_ON, true)) {
 				this.whoisConnector = new CachedWhoIsConnector(
 						new WhoIsConnectorImpl(cmdWhoisServersPath),
-							parameters.getInt("cache_time", 0),
-							parameters.getInt("cache_limit", 0));
+							parameters.getInt(WFL_KEY_CACHE_TIME, 0),
+							parameters.getInt(WFL_KEY_CACHE_LIMIT, 0));
 			} else {
 				this.whoisConnector = new WhoIsConnectorImpl(cmdWhoisServersPath);
 			}
 		} catch (FileNotFoundException e) {
 			throw new ParameterException("WhoIsConnector cannot be initialized.", e);
 		}
-		
-		parseKeyMaps(this.keysMap, parameters.get("keys_map", null));
 	}
 
 	public final boolean takesMuchTime() {
 		return false;
 	}
 
-	private void saveFullWhoisIfNeeded(String whoisData) throws StorageException, ResourceException {
-		if (fullWhoisDataKey != null) {
-			try {
-				long whoisDataRefId = jobContext.saveInDataStore(IOUtils.toInputStream(whoisData, "UTF-8"));
-				jobContext.addReference(fullWhoisDataKey, whoisDataRefId);
-			} catch (IOException e) {
-				LOGGER.error("Cannot save whois data into DataStore.", e);
-			}
-		}
-	}
-	
-	private Map<String, String> parseWhoisData(String rootDomain, String whoisData) {
+	protected final Map<String, String> parseWhoisData(String rootDomain, String whoisData) {
 		WhoIsParser parser = WhoisParserFactory.getParser(rootDomain);
 		if (parser == null) {
 			LOGGER.error("Cannot find whois parser for domain: {}", this.urlDomain);
@@ -127,9 +111,11 @@ public class DNSInfoTask implements Task {
 		return result;
 	}
 
-	public final void process() throws ParameterException, ResourceException, StorageException, InputDataException {
+	public final void process() throws ParameterException, ResourceException,
+			StorageException, InputDataException {
+
 		if (urlDomain == null || "".equals(urlDomain)) {
-			LOGGER.warn("no domain name to process, verify the key in object-store: {}", urlDomainKey);
+			LOGGER.warn("No domain name to process, verify the key in object-store: {}", urlDomainKey);
 			return;
 		}
 
@@ -149,30 +135,9 @@ public class DNSInfoTask implements Task {
 		}
 		LOGGER.debug("Whois data: {}", whoisData);
 
-		saveFullWhoisIfNeeded(whoisData);
+		processWhoisData(rootDomain, whoisData);
 		
-		Map<String, String> result = parseWhoisData(rootDomain, whoisData);
-		mapKeys(result);
-
 		logEnd();
-	}
-
-	private void mapKeys(Map<String, String> result) {
-		if (result == null) {
-			return;
-		}
-		for (String key : this.keysMap.keySet()) {
-			String value = result.get(key);
-			if (value != null) {
-				if (LOGGER.isDebugEnabled()) {
-					LOGGER.debug("Setting up ObjectStore key {} with value {}",
-							this.keysMap.get(key), value);
-				}
-				jobContext.addAttribute(this.keysMap.get(key), value);
-			} else {
-				LOGGER.debug("There is no value for key {} attribute will not be creatd in object store.", key);
-			}
-		}
 	}
 	
 	private void logEnd() {
@@ -189,21 +154,5 @@ public class DNSInfoTask implements Task {
 		}
 	}
 
-	public static final void parseKeyMaps(Map<String, String> map, String string) {
-		if (string == null || "".equals(string)) {
-			return;
-		}
-		
-		String unified = string.replaceAll("[\\n\\s\\t;]+", " ");
-		LOGGER.debug("keysMapString unified to: {}", unified);
-		
-		for (String line : unified.split(" ")) {
-			String[] mapping = line.split("->");
-			if (mapping == null || mapping.length != 2) {
-				LOGGER.error("Problem with parsing keys map: {}. Ignoring.", line);
-				continue;
-			}
-			map.put(mapping[0], mapping[1]);
-		}
-	}
+	protected abstract void processWhoisData(String rootDomain, String whoisData) throws StorageException, ResourceException;
 }

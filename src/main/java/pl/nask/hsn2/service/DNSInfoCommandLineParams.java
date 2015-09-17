@@ -30,7 +30,12 @@ public class DNSInfoCommandLineParams extends CommandLineParams {
 	
 	private static final OptionNameWrapper ZONES_PATH = new OptionNameWrapper("zp", "zonesPath");
 	private static final OptionNameWrapper WHOSI_SERVERS_PATH = new OptionNameWrapper("wsp", "whoisServersPath");
-	
+
+	private static final OptionNameWrapper MYSQL_URL = new OptionNameWrapper("mysqlUrl", "mysqlUrl");
+	private static final OptionNameWrapper MYSQL_DATABASE = new OptionNameWrapper("mysqldb", "mysqlDatabase");
+	private static final OptionNameWrapper MYSQL_USERNAME = new OptionNameWrapper("mysqlUser", "mysqlUser");
+	private static final OptionNameWrapper MYSQL_PASSWORD = new OptionNameWrapper("mysqlPassword", "mysqlPassword");
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(DNSInfoCommandLineParams.class);
 
 	@Override
@@ -38,6 +43,10 @@ public class DNSInfoCommandLineParams extends CommandLineParams {
 		super.initOptions();
 		addOption(ZONES_PATH, "path", "path to zones file");
 		addOption(WHOSI_SERVERS_PATH, "path", "path to whois servers list file");
+		addOption(MYSQL_URL, "mysqlUrl", "connector URL to mysql database");
+		addOption(MYSQL_DATABASE, "mysqlDatabase", "name of the mysql database");
+		addOption(MYSQL_USERNAME, "mysqlUser", "username for mysql database");
+		addOption(MYSQL_PASSWORD, "mysqlPassword", "password for mysql database");
 	}
 	
 	@Override
@@ -53,6 +62,22 @@ public class DNSInfoCommandLineParams extends CommandLineParams {
 	
 	public final String getWhoisServersPath() {
 		return getOptionValue(WHOSI_SERVERS_PATH);
+	}
+
+	public String getMysqlUrl() {
+		return getOptionValue(MYSQL_URL);
+	}
+
+	public String getMysqlDatabase() {
+		return getOptionValue(MYSQL_DATABASE);
+	}
+
+	public String getMysqlUser() {
+		return getOptionValue(MYSQL_USERNAME);
+	}
+
+	public String getMysqlPassword() {
+		return getOptionValue(MYSQL_PASSWORD);
 	}
 
 	@Override
