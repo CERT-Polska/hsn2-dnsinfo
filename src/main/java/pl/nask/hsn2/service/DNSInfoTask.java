@@ -40,14 +40,14 @@ import pl.nask.hsn2.wrappers.ParametersWrapper;
 
 public abstract class DNSInfoTask implements Task {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(DNSInfoTask.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DNSInfoTask.class);
 
 	// workflow parameters
-	private static String WFL_KEY_COLLECT_STATS = "collect_stats";
-	private static String WFL_KEY_URL_DOMAIN_KEY = "url_domain_key";
-	private static String WFL_KEY_CACHE_ON = "cache_on";
-	private static String WFL_KEY_CACHE_TIME = "cache_time";
-	private static String WFL_KEY_CACHE_LIMIT = "cache_limit";
+	private static final String WFL_KEY_COLLECT_STATS = "collect_stats";
+	private static final String WFL_KEY_URL_DOMAIN_KEY = "url_domain_key";
+	private static final String WFL_KEY_CACHE_ON = "cache_on";
+	private static final String WFL_KEY_CACHE_TIME = "cache_time";
+	private static final String WFL_KEY_CACHE_LIMIT = "cache_limit";
 	
 	
 	// object store attributes

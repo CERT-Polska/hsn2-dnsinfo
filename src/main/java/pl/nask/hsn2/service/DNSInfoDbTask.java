@@ -38,11 +38,11 @@ import pl.nask.hsn2.wrappers.ParametersWrapper;
 
 public class DNSInfoDbTask extends DNSInfoTask {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(DNSInfoDbTask.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DNSInfoDbTask.class);
 
 	// workflow parameters
-	private static String WFL_KEY_DB_KEYS_LIST = "db_keys_list";
-	private static String WFL_KEY_DB_TABLE_NAME = "db_table_name";
+	private static final String WFL_KEY_DB_KEYS_LIST = "db_keys_list";
+	private static final String WFL_KEY_DB_TABLE_NAME = "db_table_name";
 
 	//class variables
 	private final MysqlAdapter mysqlAdapter;
@@ -78,7 +78,7 @@ public class DNSInfoDbTask extends DNSInfoTask {
 		storeWhoisEntity(rootDomain, whoisData, result);
 	}
 
-	private final void storeWhoisEntity(final String rootDomain, final String fullData, final Map<String, String> result) throws ResourceException {
+	private void storeWhoisEntity(final String rootDomain, final String fullData, final Map<String, String> result) throws ResourceException {
 		if (result == null) {
 			return;
 		}
@@ -86,7 +86,7 @@ public class DNSInfoDbTask extends DNSInfoTask {
 		final Iterator<String> iterator = this.dbKeysList.iterator();
 		this.mysqlAdapter.persistWhoisInfo(rootDomain, new Callable<String>() {
 			@Override
-			public String call() throws NoSuchElementException {
+			public String call() {
 				String key = iterator.next();
 				String value = null;
 				if (key.startsWith("*")) {

@@ -36,11 +36,11 @@ import pl.nask.hsn2.wrappers.ParametersWrapper;
 
 public class DNSInfoOsTask extends DNSInfoTask {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(DNSInfoOsTask.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DNSInfoOsTask.class);
 
 	// workflow parameters
-	private static String WFL_KEY_WHOIS_DATA_KEY = "whois_data_key";
-	private static String WFL_KEY_KEYS_MAP = "keys_map";
+	private static final String WFL_KEY_WHOIS_DATA_KEY = "whois_data_key";
+	private static final String WFL_KEY_KEYS_MAP = "keys_map";
 	
 	//class variables
 	private final String fullWhoisDataKey;
@@ -67,7 +67,7 @@ public class DNSInfoOsTask extends DNSInfoTask {
 		mapOsKeys(result);
 	}
 
-	private final void saveFullWhoisIfNeeded(String whoisData) throws StorageException, ResourceException {
+	private void saveFullWhoisIfNeeded(String whoisData) throws StorageException, ResourceException {
 		if (fullWhoisDataKey != null) {
 			try {
 				long whoisDataRefId = jobContext.saveInDataStore(IOUtils.toInputStream(whoisData, "UTF-8"));
@@ -78,7 +78,7 @@ public class DNSInfoOsTask extends DNSInfoTask {
 		}
 	}
 	
-	private final void mapOsKeys(Map<String, String> result) {
+	private void mapOsKeys(Map<String, String> result) {
 		if (result == null) {
 			return;
 		}

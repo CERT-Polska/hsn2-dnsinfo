@@ -64,19 +64,19 @@ public class DNSInfoCommandLineParams extends CommandLineParams {
 		return getOptionValue(WHOSI_SERVERS_PATH);
 	}
 
-	public String getMysqlUrl() {
+	public final String getMysqlUrl() {
 		return getOptionValue(MYSQL_URL);
 	}
 
-	public String getMysqlDatabase() {
+	public final String getMysqlDatabase() {
 		return getOptionValue(MYSQL_DATABASE);
 	}
 
-	public String getMysqlUser() {
+	public final String getMysqlUser() {
 		return getOptionValue(MYSQL_USERNAME);
 	}
 
-	public String getMysqlPassword() {
+	public final String getMysqlPassword() {
 		return getOptionValue(MYSQL_PASSWORD);
 	}
 

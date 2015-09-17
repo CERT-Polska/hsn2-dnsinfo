@@ -1,10 +1,7 @@
 package pl.nask.hsn2.tests;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.junit.Assert;
 import org.testng.annotations.Test;
 
 import pl.nask.hsn2.InputDataException;
@@ -12,7 +9,6 @@ import pl.nask.hsn2.ParameterException;
 import pl.nask.hsn2.ResourceException;
 import pl.nask.hsn2.StorageException;
 import pl.nask.hsn2.TaskContext;
-import pl.nask.hsn2.service.DNSInfoTask;
 import pl.nask.hsn2.wrappers.ObjectDataWrapper;
 import pl.nask.hsn2.wrappers.ParametersWrapper;
 import mockit.Mocked;
