@@ -29,7 +29,7 @@ import pl.nask.hsn2.CommandLineParams;
 public class DNSInfoCommandLineParams extends CommandLineParams {
 	
 	private static final OptionNameWrapper ZONES_PATH = new OptionNameWrapper("zp", "zonesPath");
-	private static final OptionNameWrapper WHOSI_SERVERS_PATH = new OptionNameWrapper("wsp", "whoisServersPath");
+	private static final OptionNameWrapper WHOIS_SERVERS_PATH = new OptionNameWrapper("wsp", "whoisServersPath");
 
 	private static final OptionNameWrapper MYSQL_URL = new OptionNameWrapper("mysqlUrl", "mysqlUrl");
 	private static final OptionNameWrapper MYSQL_DATABASE = new OptionNameWrapper("mysqldb", "mysqlDatabase");
@@ -42,7 +42,7 @@ public class DNSInfoCommandLineParams extends CommandLineParams {
 	public final void initOptions() {
 		super.initOptions();
 		addOption(ZONES_PATH, "path", "path to zones file");
-		addOption(WHOSI_SERVERS_PATH, "path", "path to whois servers list file");
+		addOption(WHOIS_SERVERS_PATH, "path", "path to whois servers list file");
 		addOption(MYSQL_URL, "mysqlUrl", "connector URL to mysql database");
 		addOption(MYSQL_DATABASE, "mysqlDatabase", "name of the mysql database");
 		addOption(MYSQL_USERNAME, "mysqlUser", "username for mysql database");
@@ -54,6 +54,10 @@ public class DNSInfoCommandLineParams extends CommandLineParams {
 		super.initDefaults();
 		setDefaultServiceNameAndQueueName("dns-info");
 		setDefaultMaxThreads(1);
+		setDefaultValue(MYSQL_URL, "none");
+		setDefaultValue(MYSQL_DATABASE, "none");
+		setDefaultValue(MYSQL_USERNAME, "none");
+		setDefaultValue(MYSQL_PASSWORD, "none");
 	}
 	
 	public final String getZonesPath() {
@@ -61,7 +65,7 @@ public class DNSInfoCommandLineParams extends CommandLineParams {
 	}
 	
 	public final String getWhoisServersPath() {
-		return getOptionValue(WHOSI_SERVERS_PATH);
+		return getOptionValue(WHOIS_SERVERS_PATH);
 	}
 
 	public final String getMysqlUrl() {
