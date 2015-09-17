@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public final class MysqlAdapter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MysqlAdapter.class);
 
-	public static final String DEFAULT_TABLE_NAME = "WhoIsData";
+	private static final String DEFAULT_TABLE_NAME = "WhoIsData";
 
 //	private static final String QUERY_SELECT_DATA_RETENTION = "SELECT data_retention "
 //			+ "FROM conf WHERE ID = 1";
@@ -100,15 +101,16 @@ public final class MysqlAdapter {
 		return queryBuffer.toString();
 	}
 
-	public final void setupInsertStatement(final List<String> parameters) {
+	public void setupInsertStatement(final List<String> parameters) {
 		setupInsertStatement(DEFAULT_TABLE_NAME, parameters);
 	}
 
-	public final void setupInsertStatement(String tableName, final List<String> parameters) {
-		if (tableName == null || "".equals(tableName)) {
-			tableName = DEFAULT_TABLE_NAME;
-		}
-		String insertQuery = buildInsertQuery(tableName, parameters);
+	public void setupInsertStatement(String tableName, final List<String> parameters) {
+
+		String insertQuery = buildInsertQuery(
+				(tableName == null || "".equals(tableName))?
+					DEFAULT_TABLE_NAME:tableName,
+					parameters);
 		
 		try {
 			if (this.statementInsertWhoIsData != null) {
@@ -120,11 +122,11 @@ public final class MysqlAdapter {
 		}
 	}
 	
-	public final void persistWhoisInfo(String domain, Callable<String> callable) throws ResourceException {
+	public void persistWhoisInfo(String domain, Callable<String> callable) throws ResourceException {
 		try {
 			int index = 1;
 			statementInsertWhoIsData.clearParameters();
-			statementInsertWhoIsData.setLong(index++, System.currentTimeMillis() / 1000);
+			statementInsertWhoIsData.setLong(index++, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
 			statementInsertWhoIsData.setString(index++, domain);
 			String value = null;
 			while (true) {
@@ -170,81 +172,81 @@ public final class MysqlAdapter {
 //		}
 //	}
 
-	public boolean attempt(Callable<Void> callable) {
-		boolean success = false;
-		try {
-			if (!conn.isValid(0)) {
-				MysqlAdapter.LOGGER.info("Invalid MySQL connection - reconnecting...");
-				reconnect();
-			}
-		} catch (Exception exc) {
-			MysqlAdapter.LOGGER.error("Failed reconnect", exc);
-			return false;
-		}
-		try {
-			this.conn.setAutoCommit(false);
-			callable.call();
-			this.conn.commit();
-			success = true;
-		} catch (Exception exc) {
-			MysqlAdapter.LOGGER.error("Failed attempt", exc);
-			this.reconnect();
-		}
-		if (!success) {
-			try {
-				this.conn.setAutoCommit(false);
-				callable.call();
-				this.conn.commit();
-			} catch (Exception exc) {
-				MysqlAdapter.LOGGER.error("Failed retry", exc);
-			}
-		}
-		try {
-			this.conn.setAutoCommit(true);
-		} catch (Exception exc) {
-			MysqlAdapter.LOGGER.error("Failed setting autocommit", exc);
-		}
-		return success;
-	}
-
-	public long attemptReturnId(Callable<Long> callable) {
-		long result = 0;
-		try {
-			if (!conn.isValid(0)) {
-				MysqlAdapter.LOGGER.info("Invalid MySQL connection - reconnecting...");
-				reconnect();
-			}
-		} catch (Exception exc) {
-			MysqlAdapter.LOGGER.error("Failed reconnect", exc);
-			return -1;
-		}
-		try {
-			this.conn.setAutoCommit(false);
-			result = callable.call();
-			this.conn.commit();
-		} catch (Exception exc) {
-			MysqlAdapter.LOGGER.error("Failed attempt", exc);
-			result = -1;
-			this.reconnect();
-		}
-		if (result <= 0) {
-			try {
-				this.conn.setAutoCommit(false);
-				result = callable.call();
-				this.conn.commit();
-			} catch (Exception exc) {
-				MysqlAdapter.LOGGER.error("Failed retry", exc);
-				result = -1;
-			}
-		}
-		try {
-			this.conn.setAutoCommit(true);
-		} catch (Exception exc) {
-			MysqlAdapter.LOGGER.error("Failed setting autocommit", exc);
-		}
-		return result;
-	}
-	
+//	public boolean attempt(Callable<Void> callable) {
+//		boolean success = false;
+//		try {
+//			if (!conn.isValid(0)) {
+//				MysqlAdapter.LOGGER.info("Invalid MySQL connection - reconnecting...");
+//				reconnect();
+//			}
+//		} catch (Exception exc) {
+//			MysqlAdapter.LOGGER.error("Failed reconnect", exc);
+//			return false;
+//		}
+//		try {
+//			this.conn.setAutoCommit(false);
+//			callable.call();
+//			this.conn.commit();
+//			success = true;
+//		} catch (Exception exc) {
+//			MysqlAdapter.LOGGER.error("Failed attempt", exc);
+//			this.reconnect();
+//		}
+//		if (!success) {
+//			try {
+//				this.conn.setAutoCommit(false);
+//				callable.call();
+//				this.conn.commit();
+//			} catch (Exception exc) {
+//				MysqlAdapter.LOGGER.error("Failed retry", exc);
+//			}
+//		}
+//		try {
+//			this.conn.setAutoCommit(true);
+//		} catch (Exception exc) {
+//			MysqlAdapter.LOGGER.error("Failed setting autocommit", exc);
+//		}
+//		return success;
+//	}
+//
+//	public long attemptReturnId(Callable<Long> callable) {
+//		long result = 0;
+//		try {
+//			if (!conn.isValid(0)) {
+//				MysqlAdapter.LOGGER.info("Invalid MySQL connection - reconnecting...");
+//				reconnect();
+//			}
+//		} catch (Exception exc) {
+//			MysqlAdapter.LOGGER.error("Failed reconnect", exc);
+//			return -1;
+//		}
+//		try {
+//			this.conn.setAutoCommit(false);
+//			result = callable.call();
+//			this.conn.commit();
+//		} catch (Exception exc) {
+//			MysqlAdapter.LOGGER.error("Failed attempt", exc);
+//			result = -1;
+//			this.reconnect();
+//		}
+//		if (result <= 0) {
+//			try {
+//				this.conn.setAutoCommit(false);
+//				result = callable.call();
+//				this.conn.commit();
+//			} catch (Exception exc) {
+//				MysqlAdapter.LOGGER.error("Failed retry", exc);
+//				result = -1;
+//			}
+//		}
+//		try {
+//			this.conn.setAutoCommit(true);
+//		} catch (Exception exc) {
+//			MysqlAdapter.LOGGER.error("Failed setting autocommit", exc);
+//		}
+//		return result;
+//	}
+//	
 	public static int countCharacters(char ch, String str) {
 		if (str==null || str.length()==0) {
 			return 0;

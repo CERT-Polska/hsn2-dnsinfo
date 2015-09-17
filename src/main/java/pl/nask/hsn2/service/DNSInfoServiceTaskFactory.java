@@ -28,7 +28,7 @@ import pl.nask.hsn2.wrappers.ParametersWrapper;
 
 public class DNSInfoServiceTaskFactory implements TaskFactory {
 
-	private static String WFL_KEY_USE_MYSQL = "use_mysql";
+	private static final String WFL_KEY_USE_MYSQL = "use_mysql";
 
 	private static DNSInfoCommandLineParams cmd;
 		
