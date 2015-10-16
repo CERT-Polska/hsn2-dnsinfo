@@ -2,6 +2,7 @@ milzano.bs.it
 it
 com
 net
+org
 pl
 eu
 net.ru
