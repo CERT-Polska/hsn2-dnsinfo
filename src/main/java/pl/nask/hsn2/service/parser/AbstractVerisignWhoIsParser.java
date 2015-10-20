@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public abstract class VerisignWhoIsParser extends RegExpWhoisParser {
+public abstract class AbstractVerisignWhoIsParser extends AbstractRegExpWhoisParser {
 
 	
 
-	public VerisignWhoIsParser() {
+	public AbstractVerisignWhoIsParser() {
 		super();
 //		protected $blocks = array(1 => '/domain name:(?>[\x20\t]*)(.*?)(?=>>>)/is');
 		blocks.put(1,

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public final class EUWhoIsParser extends RegExpWhoisParser {
+public final class EUWhoIsParser extends AbstractRegExpWhoisParser {
 
 	
 	public EUWhoIsParser() {

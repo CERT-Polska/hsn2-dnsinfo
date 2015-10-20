@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public abstract class TCINETAbstractWhoIsParser extends RegExpWhoisParser {
+public abstract class AbstractTCINETWhoIsParser extends AbstractRegExpWhoisParser {
 
-	public TCINETAbstractWhoIsParser() {
+	public AbstractTCINETWhoIsParser() {
 		super();
 		blocks.put(1,
 				Pattern.compile(

@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public abstract class NICAbstractWhoIsParser extends RegExpWhoisParser {
+public abstract class AbstractNICWhoIsParser extends AbstractRegExpWhoisParser {
 
-	public NICAbstractWhoIsParser() {
+	public AbstractNICWhoIsParser() {
 		super();
 		blocks.put(1,
 				Pattern.compile(

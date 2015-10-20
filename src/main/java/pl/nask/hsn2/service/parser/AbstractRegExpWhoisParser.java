@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class RegExpWhoisParser implements WhoIsParser {
+public abstract class AbstractRegExpWhoisParser implements WhoIsParser {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(RegExpWhoisParser.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractRegExpWhoisParser.class);
 			
 	protected final Map<Integer, Pattern> blocks = new HashMap<Integer, Pattern>();
 	protected final Map<Integer, Map<Pattern, String>> blockItems = new HashMap<Integer, Map<Pattern, String>>();
