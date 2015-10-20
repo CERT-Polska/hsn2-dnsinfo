@@ -32,7 +32,7 @@ public class ORGWhoIsParserTest {
 		Assert.assertEquals(res.get("expires"), "2016-05-30T17:36:33Z");
 		Assert.assertEquals(res.get("changed"), "2015-09-18T02:11:14Z");
 		Assert.assertEquals(res.get("dnssec"), "Unsigned");
-		Assert.assertEquals(res.get("status"), "clientTransferProhibited -- http://www.icann.org/epp#clientTransferProhibited");
+		Assert.assertEquals(res.get("status"), "clientTransferProhibited");
 
 		Assert.assertEquals(res.get("contacts:owner:handle"), "7e2334065ce17cb5");
 		Assert.assertEquals(res.get("contacts:owner:name"), "Ivan Cortes Mata");
