@@ -10,3 +10,8 @@ com.ru
 org.ru
 pp.ru
 ru
+info
+su
+us
+ro
+mobi
