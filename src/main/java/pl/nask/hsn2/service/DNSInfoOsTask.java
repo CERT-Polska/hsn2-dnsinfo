@@ -39,11 +39,13 @@ public class DNSInfoOsTask extends DNSInfoTask {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DNSInfoOsTask.class);
 
 	// workflow parameters
+	private static final String WFL_KEY_ROOT_DOMAIN_KEY = "whois_root_domain_key";
 	private static final String WFL_KEY_WHOIS_DATA_KEY = "whois_data_key";
 	private static final String WFL_KEY_KEYS_MAP = "keys_map";
 	
 	//class variables
 	private final String fullWhoisDataKey;
+	private final String rootDomainKey;
 	private final Map<String, String> osKeysMap = new HashMap<String, String>();
 
 	public DNSInfoOsTask(
@@ -55,16 +57,20 @@ public class DNSInfoOsTask extends DNSInfoTask {
 		super(jobContext, parameters, data, cmdZonesPath, cmdWhoisServersPath);
 
 		this.fullWhoisDataKey = parameters.get(WFL_KEY_WHOIS_DATA_KEY, null);
+		this.rootDomainKey = parameters.get(WFL_KEY_ROOT_DOMAIN_KEY, null);
 		
 		parseOsKeyMaps(this.osKeysMap, parameters.get(WFL_KEY_KEYS_MAP, null));
 	}
 
 	protected final void processWhoisData(String rootDomain, String whoisData) throws StorageException, ResourceException {
 
+		jobContext.addAttribute(this.rootDomainKey, rootDomain);
+
 		saveFullWhoisIfNeeded(whoisData);
 		
 		Map<String, String> result = parseWhoisData(rootDomain, whoisData);
 		mapOsKeys(result);
+		
 	}
 
 	private void saveFullWhoisIfNeeded(String whoisData) throws StorageException, ResourceException {
