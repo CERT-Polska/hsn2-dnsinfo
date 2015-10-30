@@ -38,4 +38,22 @@ public class CachedWhoIsConnectorTest {
 		}
 		
 	}
+	
+	@Test
+	public void staticTest() {
+		new NonStrictExpectations() {
+			{
+				whoisConnector.getWhoisData(anyString); result = "some data";
+			}
+		};
+		for (int i=0 ; i < 50 ; i++) {
+			CachedWhoIsConnector connector = new CachedWhoIsConnector(whoisConnector, 1, 6);
+			connector.getWhoisData(""+(int)(Math.random()*15));
+			try {
+				Thread.sleep((int)(Math.random()*200));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}		
+	}
 }

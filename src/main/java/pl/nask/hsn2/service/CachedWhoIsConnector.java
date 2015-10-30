@@ -16,7 +16,7 @@ public class CachedWhoIsConnector implements WhoIsConnector {
 	private final int cacheTime;
 	private final int cacheLimit;
 	
-	private Map<String, CacheEntry> cache = new ConcurrentHashMap<String, CacheEntry>();
+	private static Map<String, CacheEntry> cache = new ConcurrentHashMap<String, CacheEntry>();
 	private int numberOfCalls = 0;
 	private int scanInterval = DEFAULT_SCAN_PERID;
 
@@ -105,8 +105,8 @@ public class CachedWhoIsConnector implements WhoIsConnector {
 	private void scanCache() {
 		LOGGER.debug("Scanning cache, cache size is {}", cache.size());
 		long fried = 0;
-		for (String key : this.cache.keySet()) {
-			CacheEntry entry = this.cache.get(key);
+		for (String key : cache.keySet()) {
+			CacheEntry entry = cache.get(key);
 			if (entry.isExpired(this.cacheTime)) {
 				cache.remove(key);
 				fried++;
