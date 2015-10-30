@@ -105,7 +105,7 @@ public class DNSInfoOsTask extends DNSInfoTask {
 			return;
 		}
 		
-		String unified = string.replaceAll("[\\n\\s\\t;]+", " ");
+		String unified = string.replaceAll("[\\n\\s\\t;]+", " ").trim();
 		LOGGER.debug("keysMapString unified to: {}", unified);
 		
 		for (String line : unified.split(" ")) {
