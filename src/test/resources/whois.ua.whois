@@ -1,0 +1,108 @@
+% This is the Ukrainian Whois query server #I.
+% The Whois is subject to Terms of use
+% See https://hostmaster.ua/services/
+%
+
+domain:           whois.ua
+dom-public:       NO
+license:          65382
+registrant:       ua-cctld-6
+admin-c:          ua-cctld-5
+tech-c:           ua-cctld-5
+tech-c:           ua-st101-2
+mnt-by:           ua.hostmaster
+nserver:          delta.hostmaster.ua
+nserver:          ho1.ns.hostmaster.ua
+nserver:          canada.hostmaster.ua
+status:           ok
+created:          2007-06-26 14:01:30+03
+modified:         2014-03-31 17:30:16+03
+expires:          2020-06-26 00:00:00+03
+source:           UAEPP
+
+% Registrar:
+% ==========
+registrar:        ua.hostmaster
+organization:     Hostmaster Ltd
+organization-loc: ТОВ "Хостмайстер"
+url:              http://hostmaster.ua
+city:             Kyiv
+country:          UA
+source:           UAEPP
+
+% Registrant:
+% ===========
+contact-id:       ua-cctld-6
+person:           Hostmaster LTD
+organization:     Hostmaster LTD
+e-mail:           info@hostmaster.ua
+address:          P.O.Box 23
+address:          KIEV
+postal-code:      04053
+country:          UA
+country-loc:      UA
+phone:            +380.445941794
+mnt-by:           ua.hostmaster
+status:           ok
+status:           linked
+created:          2014-03-31 17:30:16+03
+source:           UAEPP
+
+
+% Administrative Contacts:
+% =======================
+contact-id:       ua-cctld-5
+person:           Hostmaster LTD
+organization:     Hostmaster LTD
+e-mail:           info@hostmaster.ua
+address:          P.O.Box 23
+address:          KIEV
+postal-code:      04053
+country:          UA
+country-loc:      UA
+phone:            +380.445941794
+mnt-by:           ua.hostmaster
+status:           ok
+status:           linked
+created:          2014-03-31 17:27:42+03
+source:           UAEPP
+
+
+% Technical Contacts:
+% ===================
+contact-id:       ua-cctld-5
+person:           Hostmaster LTD
+organization:     Hostmaster LTD
+e-mail:           info@hostmaster.ua
+address:          P.O.Box 23
+address:          KIEV
+postal-code:      04053
+country:          UA
+country-loc:      UA
+phone:            +380.445941794
+mnt-by:           ua.hostmaster
+status:           ok
+status:           linked
+created:          2014-03-31 17:27:42+03
+source:           UAEPP
+
+
+contact-id:       ua-st101-2
+person:           Tkachenko Svitlana
+e-mail:           sveta@net.ua
+address:          p.o.box 98
+address:          KYIV
+postal-code:      04060
+country:          UA
+country-loc:      UA
+phone:            +380.445941794
+mnt-by:           ua.hostmaster
+status:           ok
+status:           linked
+created:          2014-03-31 17:09:16+03
+source:           UAEPP
+
+
+
+% Query time:     7 msec
+

@@ -15,3 +15,7 @@ su
 us
 ro
 mobi
+de
+in
+ua
+kz
