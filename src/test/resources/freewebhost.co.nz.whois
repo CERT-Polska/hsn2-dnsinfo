@@ -1,0 +1,69 @@
+% NZRS Limited
+% Users confirm on submission their agreement to all published Terms
+%
+version: 5.00
+query_datetime: 2015-12-01T03:28:10+13:00
+domain_name: freewebhost.co.nz
+query_status: 200 Active
+domain_dateregistered: 2009-08-25T09:38:34+12:00
+domain_datebilleduntil: 2016-08-25T09:38:34+12:00
+domain_datelastmodified: 2015-08-28T10:07:06+12:00
+domain_delegaterequested: yes
+domain_signed: no
+%
+registrar_name: Crazy Domains FZ-LLC
+registrar_address1: Office 210, Building 11
+registrar_city: Dubai lnternet City
+registrar_province: Dubai
+registrar_postalcode: 500472
+registrar_country: AE (UNITED ARAB EMIRATES)
+registrar_phone: +971 4 123 9000
+registrar_fax: +61 8 9422 0801
+registrar_email: registry@crazydomains.com
+%
+registrant_contact_name: One IT Limited
+registrant_contact_address1: 34A Budgen Street
+registrant_contact_city: Auckland
+registrant_contact_province: Auckland
+registrant_contact_postalcode: 1024
+registrant_contact_country: NZ (NEW ZEALAND)
+registrant_contact_phone: +64  800148448
+registrant_contact_email: brett@oneit.co.nz
+%
+admin_contact_name: Brett Smith
+admin_contact_address1: 74 Princes Street
+admin_contact_city: Onehunga
+admin_contact_province: Auckland
+admin_contact_postalcode: 1061
+admin_contact_country: NZ (NEW ZEALAND)
+admin_contact_phone: +64  800148448
+admin_contact_email: info@oneit.co.nz
+%
+technical_contact_name: Brett Smith
+technical_contact_address1: 74 Princes Street
+technical_contact_city: Onehunga
+technical_contact_province: Auckland
+technical_contact_postalcode: 1061
+technical_contact_country: NZ (NEW ZEALAND)
+technical_contact_phone: +64  800148448
+technical_contact_email: info@oneit.co.nz
+%
+ns_name_01: ns1.byet.org
+ns_name_02: ns2.byet.org
+ns_name_03: ns3.byet.org
+%
+% Users are advised that the following activities are strictly forbidden.
+%
+% Using multiple WHOIS queries, or using the output of multiple WHOIS
+% queries in conjunction with any other facility or service, to enable
+% or effect a download of part or all of the .nz Register.
+%
+% Using any information contained in the WHOIS query output to attempt a
+% targeted contact campaign with any person, or any organisation, using any
+% medium.
+%
+% A breach of these conditions will be treated as a breach of the .nz Policies
+% and Procedures.  Sanctions in line with those specified in the policies and
+% procedures at www.dnc.org.nz may result from any breach.
+%
+% Copyright InternetNZ

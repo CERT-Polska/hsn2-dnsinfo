@@ -19,3 +19,11 @@ de
 in
 ua
 kz
+com.br
+net.br
+tmp.br
+br
+co.nz
+net.nz
+org.nz
+nz

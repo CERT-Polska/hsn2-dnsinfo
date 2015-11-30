@@ -1,0 +1,57 @@
+
+% Copyright (c) Nic.br
+%  The use of the data below is only permitted as described in
+%  full by the terms of use at http://registro.br/termo/en.html ,
+%  being prohibited its distribution, commercialization or
+%  reproduction, in particular, to use it for advertising or
+%  any similar purpose.
+%  2015-11-30 10:27:29 (BRST -02:00)
+
+% Query rate limit exceeded. Reduced information.
+% Use https://registro.br/cgi-bin/nicbr/busca_dominio for domain availability.
+
+domain:      uol.com.br
+owner:       Universo Online S.A.
+responsible: Contato da Entidade UOL
+country:     BR
+owner-c:     CAU12
+admin-c:     CAU12
+tech-c:      CTU6
+billing-c:   CCU10
+nserver:     eliot.uol.com.br 200.221.11.98 
+nsstat:      20151128 AA
+nslastaa:    20151128
+nserver:     borges.uol.com.br 200.147.255.105 
+nsstat:      20151128 AA
+nslastaa:    20151128
+nserver:     charles.uol.com.br 200.147.38.8 
+nsstat:      20151128 AA
+nslastaa:    20151128
+created:     19960424 #7137
+expires:     20230424
+changed:     20130410
+status:      published
+
+nic-hdl-br:  CAU12
+person:      Contato Administrativo - UOL
+created:     20031202
+changed:     20100106
+
+nic-hdl-br:  CCU10
+person:      Contato de Cobranca - UOL
+created:     20031202
+changed:     20070301
+
+nic-hdl-br:  CTU6
+person:      Contato Tecnico - UOL
+created:     20031202
+changed:     20070301
+
+% Security and mail abuse issues should also be addressed to
+% cert.br, http://www.cert.br/ , respectivelly to cert@cert.br
+% and mail-abuse@cert.br
+%
+% whois.registro.br accepts only direct match queries. Types
+% of queries are: domain (.br), registrant (tax ID), ticket,
+% provider, contact handle (ID), CIDR block, IP and ASN.
+

@@ -89,6 +89,7 @@ jp whois.jprs.jp
 ke whois.kenic.or.ke
 kg whois.domain.kg
 kr whois.nic.or.kr
+kz whois.nic.kz
 la whois2.afilias-grs.net
 li whois.nic.li
 lt whois.domreg.lt
