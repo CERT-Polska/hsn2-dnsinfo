@@ -27,3 +27,5 @@ co.nz
 net.nz
 org.nz
 nz
+by
+ch
