@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class NZWhoIsParser extends AbstractRegExpWhoisParser {
+public final class NZWhoIsParser extends AbstractRegExpWhoisParser {
 	public NZWhoIsParser() {
 		super();
 

@@ -29,3 +29,7 @@ org.nz
 nz
 by
 ch
+cc
+pro
+biz
+pw

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class BYWhoIsParser extends AbstractRegExpWhoisParser {
+public final class BYWhoIsParser extends AbstractRegExpWhoisParser {
 	public BYWhoIsParser() {
 		super();
 

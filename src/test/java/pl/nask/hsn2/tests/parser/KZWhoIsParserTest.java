@@ -47,7 +47,7 @@ public class KZWhoIsParserTest {
 		Assert.assertEquals(res.get("created"), "1999-08-17 20:34:57 (GMT+0:00)");
 		Assert.assertEquals(res.get("changed"), "1999-08-17 20:34:57 (GMT+0:00)");
 		Assert.assertEquals(res.get("status"), "ok - Normal state.");
-		Assert.assertEquals(res.get("registrar:name"), "KAZNIC");
+		Assert.assertEquals(res.get("registrar:id"), "KAZNIC");
 	}
 
 	@Test
