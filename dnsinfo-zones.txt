@@ -33,3 +33,13 @@ cc
 pro
 biz
 pw
+com.ee
+org.ee
+pri.ee
+ee
+com.co
+nom.co
+org.co
+co
+com.mx
+mx
