@@ -17,11 +17,11 @@ public class ZonesBasedDomainExtractor implements DomainExtractor {
 	public static final String DEFAULT_ZONES_FILE = "zones.txt";
 
 	private List<String> zones = new ArrayList<String>();
-	
+
 	public ZonesBasedDomainExtractor() throws FileNotFoundException {
 		this(DEFAULT_ZONES_FILE);
 	}
-	
+
 	public ZonesBasedDomainExtractor(String zonesPath) throws FileNotFoundException {
 		Scanner inFile = new Scanner(new File(zonesPath));
 		int counter = 0;
@@ -53,9 +53,9 @@ public class ZonesBasedDomainExtractor implements DomainExtractor {
 			}
 
 			if (hostname.endsWith("." + zone)) {
-				
+
 				String tmp = hostname.substring(0, hostname.lastIndexOf(zone)-1);
-				
+
 				int lastDotIndex = tmp.lastIndexOf('.');
 				if (lastDotIndex >= 0) {
 					tmp = tmp.substring(tmp.lastIndexOf('.')+1);
@@ -63,12 +63,12 @@ public class ZonesBasedDomainExtractor implements DomainExtractor {
 
 				tmp = tmp + "." + zone;
 				LOGGER.debug("Final domain: {}", tmp);
-				
+
 				return tmp;
 			}
 		}
-		
-		LOGGER.error("Cannot determine root domain.");
+
+		LOGGER.error("Cannot determine root domain for: {}", hostname);
 		return null;
 	}
 

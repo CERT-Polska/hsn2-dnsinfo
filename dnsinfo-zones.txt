@@ -43,3 +43,12 @@ org.co
 co
 com.mx
 mx
+asia
+priv.me
+its.me
+net.me
+org.me
+co.me
+me
+ca
+uz
