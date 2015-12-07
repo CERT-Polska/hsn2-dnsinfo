@@ -1,0 +1,32 @@
+# Copyright (c) 1997- IIS (The Internet Foundation In Sweden).
+# All rights reserved.
+# The information obtained through searches, or otherwise, is protected
+# by the Swedish Copyright Act (1960:729) and international conventions.
+# It is also subject to database protection according to the Swedish
+# Copyright Act.
+# Any use of this material to target advertising or
+# similar activities is forbidden and will be prosecuted.
+# If any of the information below is transferred to a third
+# party, it must be done in its entirety. This server must
+# not be used as a backend for a search engine.
+# Result of search for registered domain names under
+# the .se top level domain.
+# This whois printout is printed with UTF-8 encoding.
+#
+state:            active
+domain:           nobelprize.se
+holder:           domnob1112-00001
+admin-c:          dipcon0903-00050
+tech-c:           dipcon0903-00050
+billing-c:        dipcon0903-00050
+created:          2003-04-15
+modified:         2015-02-01
+expires:          2016-04-15
+transferred:      2009-03-07
+nserver:          dns04.ports.net
+nserver:          dns03.ports.se
+nserver:          dns02.ports.se
+nserver:          dns01.dipcon.com
+dnssec:           unsigned delegation
+status:           ok
+registrar:        Domaininfo AB

@@ -53,3 +53,12 @@ me
 ca
 uz
 fr
+co.uk
+me.uk
+org.uk
+ltd.uk
+plc.uk
+uk
+com.se
+pp.se
+se
