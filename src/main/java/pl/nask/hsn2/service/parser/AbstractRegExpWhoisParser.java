@@ -11,12 +11,12 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractRegExpWhoisParser implements WhoIsParser {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractRegExpWhoisParser.class);
-			
+
 	protected final Map<Integer, Pattern> blocks = new HashMap<Integer, Pattern>();
 	protected final Map<Integer, Map<Pattern, String>> blockItems = new HashMap<Integer, Map<Pattern, String>>();
 
 	protected Pattern availableItem = null;
-	
+
 	@Override
 	public final Map<String, String> parse(String whoisData) {
 
@@ -24,27 +24,27 @@ public abstract class AbstractRegExpWhoisParser implements WhoIsParser {
 			LOGGER.error("Whois data cannot be empty or null.");
 			return null;
 		}
-		
+
 		Map<String, String> results = new HashMap<String, String>();
-		
+
 		if (isAvailable(whoisData)) {
 			LOGGER.debug("Domain has no whois data.");
 			return results;
 		}
-		
+
 		for (Integer blockNum : blocks.keySet()) {
 			Matcher blockMatcher = blocks.get(blockNum).matcher(whoisData);
 			if (!blockMatcher.find()) {
 				LOGGER.debug("Block {} cannot be matched.", blockNum);
 				continue;
 			}
-			
+
 			Map<Pattern, String> items = blockItems.get(blockNum);
 			if (items == null) {
 				LOGGER.error("There is no patterns for this block: {}", blockNum);
 				continue;
 			}
-			
+
 			for (Map.Entry<Pattern, String> entry : items.entrySet()) {
 				Matcher itemMacher = entry.getKey().matcher(blockMatcher.group(1));
 				while (itemMacher.find()) {
@@ -56,7 +56,9 @@ public abstract class AbstractRegExpWhoisParser implements WhoIsParser {
 				}
 			}
 		}
-		
+
+		processAfterParse(whoisData, results);
+
 		return results;
 	}
 
@@ -70,5 +72,9 @@ public abstract class AbstractRegExpWhoisParser implements WhoIsParser {
 			return true;
 		}
 		return false;
+	}
+
+	protected void processAfterParse(String whoisData, Map<String, String> results) {
+		// optional processing specific for a zone
 	}
 }

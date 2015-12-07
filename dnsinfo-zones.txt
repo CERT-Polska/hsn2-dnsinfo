@@ -52,3 +52,4 @@ co.me
 me
 ca
 uz
+fr
