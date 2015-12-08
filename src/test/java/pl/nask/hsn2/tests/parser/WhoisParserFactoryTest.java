@@ -12,6 +12,7 @@ import pl.nask.hsn2.service.parser.NETWhoIsParser;
 import pl.nask.hsn2.service.parser.PLWhoIsParser;
 import pl.nask.hsn2.service.parser.WhoIsParser;
 import pl.nask.hsn2.service.parser.WhoisParserFactory;
+import pl.nask.hsn2.service.parser.idn.P1AIWhoIsParser;
 
 public class WhoisParserFactoryTest {
 
@@ -19,7 +20,7 @@ public class WhoisParserFactoryTest {
 	public void clearParsersMap() {
 		WhoisParserFactory.clearParsersMap();
 	}
-	
+
 	@Test(expectedExceptions = IllegalArgumentException.class)
 	public void emptyArgumentTest1() {
 		WhoisParserFactory.getParser("");
@@ -44,7 +45,7 @@ public class WhoisParserFactoryTest {
 	public void onlyZoneTest() {
 		WhoIsParser parser = WhoisParserFactory.getParser("pl");
 		Assert.assertTrue(parser instanceof PLWhoIsParser);
-		
+
 		parser = WhoisParserFactory.getParser("pl.");
 		Assert.assertTrue(parser instanceof PLWhoIsParser);
 
@@ -56,6 +57,18 @@ public class WhoisParserFactoryTest {
 
 		parser = WhoisParserFactory.getParser("...pl..");
 		Assert.assertTrue(parser instanceof PLWhoIsParser);
+
+		parser = WhoisParserFactory.getParser("xn--p1ai.");
+		Assert.assertTrue(parser instanceof P1AIWhoIsParser);
+
+		parser = WhoisParserFactory.getParser("xn--p1ai....");
+		Assert.assertTrue(parser instanceof P1AIWhoIsParser);
+
+		parser = WhoisParserFactory.getParser(".xn--p1ai.");
+		Assert.assertTrue(parser instanceof P1AIWhoIsParser);
+
+		parser = WhoisParserFactory.getParser("...xn--p1ai..");
+		Assert.assertTrue(parser instanceof P1AIWhoIsParser);
 	}
 
 	@Test
@@ -77,21 +90,24 @@ public class WhoisParserFactoryTest {
 	public void allDomainsTest() {
 		WhoIsParser parser = WhoisParserFactory.getParser("sadas.pl");
 		Assert.assertTrue(parser instanceof PLWhoIsParser);
-		
+
 		parser = WhoisParserFactory.getParser("sadas.com.");
 		Assert.assertTrue(parser instanceof COMWhoIsParser);
-		
+
 		parser = WhoisParserFactory.getParser("sadas.edu");
 		Assert.assertTrue(parser instanceof EDUWhoIsParser);
-		
+
 		parser = WhoisParserFactory.getParser("sadas.it..");
 		Assert.assertTrue(parser instanceof ITWhoIsParser);
-		
+
 		parser = WhoisParserFactory.getParser("sadas.net");
 		Assert.assertTrue(parser instanceof NETWhoIsParser);
 
 		parser = WhoisParserFactory.getParser("sadas...das.eu.");
 		Assert.assertTrue(parser instanceof EUWhoIsParser);
+
+		parser = WhoisParserFactory.getParser("sadas.xn--p1ai");
+		Assert.assertTrue(parser instanceof P1AIWhoIsParser);
 	}
 
 	@Test
@@ -104,7 +120,7 @@ public class WhoisParserFactoryTest {
 	public void reuseTest() {
 		//should be clear b'coz @BeforeMethod
 		Assert.assertTrue(WhoisParserFactory.getParsersMap().isEmpty());
-		
+
 		Assert.assertNotNull(WhoisParserFactory.getParser("sadas.pl"));
 		Assert.assertEquals(WhoisParserFactory.getParsersMap().size(), 1);
 		Assert.assertTrue(WhoisParserFactory.getParsersMap().containsKey("pl"));
@@ -123,5 +139,12 @@ public class WhoisParserFactoryTest {
 		Assert.assertTrue(WhoisParserFactory.getParsersMap().containsKey("pl"));
 		Assert.assertTrue(WhoisParserFactory.getParsersMap().containsKey("eu"));
 		Assert.assertTrue(WhoisParserFactory.getParsersMap().containsKey("com"));
+
+		Assert.assertNotNull(WhoisParserFactory.getParser("sadsdasdsaas.xn--p1ai"));
+		Assert.assertEquals(WhoisParserFactory.getParsersMap().size(), 4);
+		Assert.assertTrue(WhoisParserFactory.getParsersMap().containsKey("pl"));
+		Assert.assertTrue(WhoisParserFactory.getParsersMap().containsKey("eu"));
+		Assert.assertTrue(WhoisParserFactory.getParsersMap().containsKey("com"));
+		Assert.assertTrue(WhoisParserFactory.getParsersMap().containsKey("xn--p1ai"));
 	}
 }

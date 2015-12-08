@@ -175,3 +175,4 @@ ws whois.website.ws
 xxx whois.nic.xxx
 yu whois.ripe.net
 za.com whois.centralnic.com
+xn--p1ai whois.tcinet.ru

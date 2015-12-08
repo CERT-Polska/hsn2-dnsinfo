@@ -10,16 +10,16 @@ import org.slf4j.LoggerFactory;
 public final class WhoisParserFactory {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(WhoisParserFactory.class);
-	
+
 	private static final Map<String, WhoIsParser> PARSERS = new HashMap<String, WhoIsParser>();
-	
+
 	private WhoisParserFactory() {}
 
 	public static WhoIsParser getParser(final String domain) {
 		if (domain == null || "".equals(domain)) {
 			throw new IllegalArgumentException("Domain cannot be empty.");
 		}
-		
+
 		String zone = domain;
 		while (zone.endsWith(".")) {
 			zone = zone.substring(0, zone.length()-1);
@@ -43,11 +43,16 @@ public final class WhoisParserFactory {
 		}
 		return parser;
 	}
-	
+
 	private static WhoIsParser getOrCreateParser(String domain, String zone) {
 		WhoIsParser parser = null;
 		Class<? extends WhoIsParser> parserClass;
-		String parserClassName = "pl.nask.hsn2.service.parser." + zone.toUpperCase() + "WhoIsParser";
+		String parserClassName = null;
+		if (zone.startsWith("xn--")) {
+			parserClassName = "pl.nask.hsn2.service.parser.idn." + zone.substring(4).toUpperCase() + "WhoIsParser";
+		} else {
+			parserClassName = "pl.nask.hsn2.service.parser." + zone.toUpperCase() + "WhoIsParser";
+		}
 		try {
 			parserClass = Class.forName(parserClassName).asSubclass(WhoIsParser.class);
 			parser = parserClass.newInstance();
@@ -61,11 +66,11 @@ public final class WhoisParserFactory {
 		}
 		return parser;
 	}
-	
+
 	public static Map<String, WhoIsParser> getParsersMap() {
 		return Collections.unmodifiableMap(PARSERS);
 	}
-	
+
 	public static void clearParsersMap() {
 		synchronized (PARSERS) {
 			PARSERS.clear();

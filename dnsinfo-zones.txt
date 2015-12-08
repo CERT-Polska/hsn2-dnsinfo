@@ -62,3 +62,4 @@ uk
 com.se
 pp.se
 se
+xn--p1ai
