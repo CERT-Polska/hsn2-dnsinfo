@@ -63,3 +63,9 @@ com.se
 pp.se
 se
 xn--p1ai
+cl
+com.au
+net.au
+org.au
+id.au
+au

@@ -63,8 +63,9 @@ public abstract class AbstractAfnicWhoIsParser extends AbstractRegExpWhoisParser
 		}
 	}
 
-	private final String matchName(String handles, String whoisData) {
-		String result = null;
+	private String matchName(String handles, String whoisData) {
+		StringBuilder result = new StringBuilder();
+		boolean found = false;
 
 		for (String handle : handles.split(";")) {
 			Pattern pattern = Pattern.compile("nic\\-hdl:(?>[\\x20\\t]*)(?=" + handle + ")(.*?)[\\n]{2}", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
@@ -76,14 +77,15 @@ public abstract class AbstractAfnicWhoIsParser extends AbstractRegExpWhoisParser
 
 			Matcher itemMacher = namePattern.matcher(blockMatcher.group(1));
 			while (itemMacher.find()) {
-				if (result != null) {
-					result = result + ";" + itemMacher.group(1);
+				if (found) {
+					result.append(";").append(itemMacher.group(1));
 				} else {
-					result = itemMacher.group(1);
+					result.append(itemMacher.group(1));
+					found = true;
 				}
 			}
 		}
 
-		return result;
+		return result.toString();
 	}
 }
