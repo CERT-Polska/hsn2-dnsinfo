@@ -9,20 +9,20 @@ public final class UKWhoIsParser extends AbstractRegExpWhoisParser {
 		super();
 
 		int blockNumber = 1;
-		blocks.put(blockNumber++, Pattern.compile("(registrant:(.*?))[\\n]{2}", Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
-		blocks.put(blockNumber++, Pattern.compile("(registrar:(.*?))[\\n]{2}", Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
-		blocks.put(blockNumber++, Pattern.compile("relevant dates:(.*?)[\\n]{2}", Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
-		blocks.put(blockNumber++, Pattern.compile("name servers:(.*?)[\\n]{2}", Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
+		blocks.put(blockNumber++, Pattern.compile("(registrant:(.*?))(?=registrant type)", Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
+		blocks.put(blockNumber++, Pattern.compile("(registrar:(.*?))(?=relevant dates)", Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
+		blocks.put(blockNumber++, Pattern.compile("relevant dates:(.*?)(?=registration status)", Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
+		blocks.put(blockNumber++, Pattern.compile("name servers:(.*?)(?=whois lookup made)", Pattern.DOTALL | Pattern.CASE_INSENSITIVE));
 
 		blockNumber = 1;
 		Map<Pattern, String> map;
 
 		map = new HashMap<>();
-		map.put(Pattern.compile("registrant:(?>[\\n\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "contacts:owner:name");
+		map.put(Pattern.compile("registrant:(?>[\\s]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "contacts:owner:name");
 		blockItems.put(blockNumber++, map);
 
 		map = new HashMap<>();
-		map.put(Pattern.compile("registrar:(?>[\\n\\x20\\t]*)(.+) \\[.+\\]$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "registrar:name");
+		map.put(Pattern.compile("registrar:(?>[\\s]*)(.+) \\[.+\\]$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "registrar:name");
 		map.put(Pattern.compile("\\[tag = (.+)\\]$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "registrar:id");
 		map.put(Pattern.compile("url:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), "registrar:url");
 		blockItems.put(blockNumber++, map);
