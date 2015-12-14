@@ -69,3 +69,11 @@ net.au
 org.au
 id.au
 au
+co.at
+or.at
+at
+com.cn
+org.cn
+cn
+com.ws
+ws
