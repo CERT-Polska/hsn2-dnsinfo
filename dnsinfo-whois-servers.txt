@@ -40,6 +40,7 @@ co whois.nic.co
 co.nl whois.co.nl
 com whois.verisign-grs.com
 coop whois.nic.coop
+country whois-dub.mm-registry.com
 cx whois.nic.cx
 cy whois.ripe.net
 cz whois.nic.cz
@@ -130,6 +131,7 @@ sa saudinic.net.sa
 sa.com whois.centralnic.com
 sb whois.nic.net.sb
 sc whois2.afilias-grs.net
+science whois.nic.science
 se whois.nic-se.se
 se.com whois.centralnic.com
 se.net whois.centralnic.com

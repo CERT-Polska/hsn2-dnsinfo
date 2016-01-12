@@ -82,3 +82,5 @@ io
 im
 la
 xyz
+country
+science

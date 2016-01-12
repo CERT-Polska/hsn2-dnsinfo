@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import pl.nask.hsn2.service.parser.COMWhoIsParser;
+import pl.nask.hsn2.service.parser.COUNTRYWhoIsParser;
 import pl.nask.hsn2.service.parser.EDUWhoIsParser;
 import pl.nask.hsn2.service.parser.EUWhoIsParser;
 import pl.nask.hsn2.service.parser.ITWhoIsParser;
@@ -108,6 +109,9 @@ public class WhoisParserFactoryTest {
 
 		parser = WhoisParserFactory.getParser("sadas.xn--p1ai");
 		Assert.assertTrue(parser instanceof P1AIWhoIsParser);
+
+		parser = WhoisParserFactory.getParser("sadas.country");
+		Assert.assertTrue(parser instanceof COUNTRYWhoIsParser);
 	}
 
 	@Test

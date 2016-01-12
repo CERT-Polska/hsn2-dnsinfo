@@ -24,5 +24,6 @@ public class WhoIsConnectorImplTest {
 		Assert.assertEquals(connector.getWhoisServer("test.mobi   "), "whois.dotmobiregistry.net");
 		Assert.assertEquals(connector.getWhoisServer("   test.co.bi   "), "whois.nic.bi");
 		Assert.assertEquals(connector.getWhoisServer("xn----gtbvck1ae7e.xn--p1ai"), "whois.tcinet.ru");
+		Assert.assertEquals(connector.getWhoisServer("testing.test.country"), "whois-dub.mm-registry.com");
 	}
 }
