@@ -23,7 +23,7 @@ public abstract class AbstractNICWhoIsParser extends AbstractRegExpWhoisParser {
 		map.put(Pattern.compile("updated date:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE),"changed");
 		map.put(Pattern.compile("name server:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE),"nameservers");
 		map.put(Pattern.compile("dnssec:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE),"dnssec");
-		map.put(Pattern.compile("domain status:(?>[\\x20\\t]*)([^\\x20\\t]+)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE),"status");
+		map.put(Pattern.compile("domain status:(?>[\\x20\\t]*)([^\\s]+)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE),"status");
 
 		map.put(Pattern.compile("registrant name:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE),"contacts:owner:name");
 		map.put(Pattern.compile("registrant organization:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE),"contacts:owner:organization");
@@ -52,9 +52,9 @@ public abstract class AbstractNICWhoIsParser extends AbstractRegExpWhoisParser {
 		map.put(Pattern.compile("tech postal code:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE),"contacts:tech:address");
 		map.put(Pattern.compile("tech country:(?>[\\x20\\t]*)(.+)$", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE),"contacts:tech:address");
 		blockItems.put(1, map);
-		
+
 		availableItem = Pattern.compile(".*NOT FOUND.*", Pattern.CASE_INSENSITIVE);
 	}
-	
-	
+
+
 }

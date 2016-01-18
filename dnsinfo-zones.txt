@@ -3,6 +3,11 @@ it
 com
 net
 org
+com.pl
+biz.pl
+net.pl
+org.pl
+info.pl
 pl
 eu
 net.ru
@@ -84,3 +89,9 @@ la
 xyz
 country
 science
+com.mu
+net.mu
+org.mu
+biz.mu
+mu
+lt
