@@ -95,3 +95,16 @@ org.mu
 biz.mu
 mu
 lt
+co.rs
+org.rs
+in.rs
+rs
+co.ke
+or.ke
+me.ke
+ne.ke
+ke
+com.pt
+nome.pt
+org.pt
+pt

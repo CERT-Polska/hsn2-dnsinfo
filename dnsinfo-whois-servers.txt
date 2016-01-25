@@ -126,6 +126,7 @@ pro whois.registrypro.pro
 pt whois.dns.pt
 pw whois.nic.pw
 ro whois.rotld.ro
+rs whois.rnids.rs
 ru whois.tcinet.ru
 sa saudinic.net.sa
 sa.com whois.centralnic.com
