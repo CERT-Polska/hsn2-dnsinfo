@@ -1,5 +1,5 @@
 /*
- * Copyright (c) NASK, NCSC
+ * Copyright (c) NASK
  *
  * This file is part of HoneySpider Network 2.0.
  *
