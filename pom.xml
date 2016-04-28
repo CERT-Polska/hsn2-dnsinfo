@@ -6,13 +6,14 @@
   	<properties>
 		<mainClass>pl.nask.hsn2.service.DNSInfoService</mainClass>
 	</properties>
-	
+
 	<parent>
 		<groupId>pl.nask.hsn2</groupId>
 		<artifactId>hsn2-commons</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../hsn2-commons-java</relativePath>
 	</parent>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>pl.nask.hsn2</groupId>
@@ -30,7 +31,7 @@
 			<version>5.1.33</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
