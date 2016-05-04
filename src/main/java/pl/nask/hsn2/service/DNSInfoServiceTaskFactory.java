@@ -1,7 +1,7 @@
 /*
- * Copyright (c) NASK, NCSC
+ * Copyright (c) NASK
  * 
- * This file is part of HoneySpider Network 2.0.
+ * This file is part of HoneySpider Network 2.1.
  * 
  * This is a free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,8 +28,6 @@ import pl.nask.hsn2.wrappers.ParametersWrapper;
 
 public class DNSInfoServiceTaskFactory implements TaskFactory {
 
-	private static final String WFL_KEY_USE_MYSQL = "use_mysql";
-
 	private static DNSInfoCommandLineParams cmd;
 		
 	public static void prepereForAllThreads(DNSInfoCommandLineParams cmd) {
@@ -37,17 +35,6 @@ public class DNSInfoServiceTaskFactory implements TaskFactory {
 	}
 
 	public final Task newTask(TaskContext jobContext, ParametersWrapper parameters, ObjectDataWrapper data) throws ParameterException {
-		
-		boolean useMysql = parameters.getBoolean(WFL_KEY_USE_MYSQL, false);
-
-		if (useMysql) {
-			return new DNSInfoDbTask(jobContext, parameters, data,
-					cmd.getZonesPath(), cmd.getWhoisServersPath(),
-					cmd.getMysqlUrl(), cmd.getMysqlDatabase(),
-					cmd.getMysqlUser(), cmd.getMysqlPassword());
-		} else {
-			return new DNSInfoOsTask(jobContext, parameters, data,
-					cmd.getZonesPath(), cmd.getWhoisServersPath());
-		}
+		return new DNSInfoOsTask(jobContext, parameters, data, cmd.getZonesPath(), cmd.getWhoisServersPath());
 	}
 }

@@ -1,7 +1,7 @@
 /*
- * Copyright (c) NASK, NCSC
+ * Copyright (c) NASK
  * 
- * This file is part of HoneySpider Network 2.0.
+ * This file is part of HoneySpider Network 2.1.
  * 
  * This is a free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,11 +31,6 @@ public class DNSInfoCommandLineParams extends CommandLineParams {
 	private static final OptionNameWrapper ZONES_PATH = new OptionNameWrapper("zp", "zonesPath");
 	private static final OptionNameWrapper WHOIS_SERVERS_PATH = new OptionNameWrapper("wsp", "whoisServersPath");
 
-	private static final OptionNameWrapper MYSQL_URL = new OptionNameWrapper("mysqlUrl", "mysqlUrl");
-	private static final OptionNameWrapper MYSQL_DATABASE = new OptionNameWrapper("mysqldb", "mysqlDatabase");
-	private static final OptionNameWrapper MYSQL_USERNAME = new OptionNameWrapper("mysqlUser", "mysqlUser");
-	private static final OptionNameWrapper MYSQL_PASSWORD = new OptionNameWrapper("mysqlPassword", "mysqlPassword");
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(DNSInfoCommandLineParams.class);
 
 	@Override
@@ -43,10 +38,6 @@ public class DNSInfoCommandLineParams extends CommandLineParams {
 		super.initOptions();
 		addOption(ZONES_PATH, "path", "path to zones file");
 		addOption(WHOIS_SERVERS_PATH, "path", "path to whois servers list file");
-		addOption(MYSQL_URL, "mysqlUrl", "connector URL to mysql database");
-		addOption(MYSQL_DATABASE, "mysqlDatabase", "name of the mysql database");
-		addOption(MYSQL_USERNAME, "mysqlUser", "username for mysql database");
-		addOption(MYSQL_PASSWORD, "mysqlPassword", "password for mysql database");
 	}
 	
 	@Override
@@ -54,10 +45,6 @@ public class DNSInfoCommandLineParams extends CommandLineParams {
 		super.initDefaults();
 		setDefaultServiceNameAndQueueName("dns-info");
 		setDefaultMaxThreads(1);
-		setDefaultValue(MYSQL_URL, "none");
-		setDefaultValue(MYSQL_DATABASE, "none");
-		setDefaultValue(MYSQL_USERNAME, "none");
-		setDefaultValue(MYSQL_PASSWORD, "none");
 	}
 	
 	public final String getZonesPath() {
@@ -66,22 +53,6 @@ public class DNSInfoCommandLineParams extends CommandLineParams {
 	
 	public final String getWhoisServersPath() {
 		return getOptionValue(WHOIS_SERVERS_PATH);
-	}
-
-	public final String getMysqlUrl() {
-		return getOptionValue(MYSQL_URL);
-	}
-
-	public final String getMysqlDatabase() {
-		return getOptionValue(MYSQL_DATABASE);
-	}
-
-	public final String getMysqlUser() {
-		return getOptionValue(MYSQL_USERNAME);
-	}
-
-	public final String getMysqlPassword() {
-		return getOptionValue(MYSQL_PASSWORD);
 	}
 
 	@Override
